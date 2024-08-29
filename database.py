@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
-SQLALCHEMY_DATABASE_URL = "mysql://root:root@10.1.70.232:3306/svtech"
+SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
 # engine = create_engine(SQLALCHEMY_DATABASE_URL)
 # conn = engine.connect()
 # result = conn.execute(text("SELECT * FROM customers;"))

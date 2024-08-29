@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "test-api"
+version = "0.1.0"
+description = ""
+authors = ["Bui Thu Ha <thuhak22ba@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.9"
+fastapi = "^0.112.2"
+uvicorn = "^0.30.6"
+sqlalchemy = "^2.0.32"
+pymysql = "^1.1.1"
+mysqlclient = "^2.2.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -6,13 +6,11 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
-# engine = create_engine(SQLALCHEMY_DATABASE_URL)
-# conn = engine.connect()
-# result = conn.execute(text("SELECT * FROM customers;"))
-# for row in result:
-#     print(row)
+ca_path = "./singlestore_bundle.pem"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+ssl_args = {"ssl": {"ca": ca_path}}
+
+engine = create_engine(url=SQLALCHEMY_DATABASE_URL, connect_args=ssl_args)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

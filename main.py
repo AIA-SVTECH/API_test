@@ -8,6 +8,7 @@ from typing import Optional
 from sqlalchemy import and_
 
 app = FastAPI()
+app.openapi_version = "3.0.3"
 
 
 class PayerIdRequestBody(BaseModel):

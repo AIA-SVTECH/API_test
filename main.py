@@ -8,7 +8,35 @@ from typing import Optional, List
 from sqlalchemy import and_
 
 app = FastAPI()
-app.openapi_version = "3.0.3"
+
+
+# Custom OpenAPI
+from fastapi.openapi.utils import get_openapi
+
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Sample API", version="0.1.0", description="Sample API", routes=app.routes
+    )
+    openapi_schema["openapi"] = "3.0.3"
+    openapi_schema["servers"] = [{"url": "http://140.83.86.79:8000/"}]
+    openapi_schema["security"] = [{"bearerAuth": []}]
+    openapi_schema["components"]["schemas"]["ValidationError"] = {
+        "type": "object",
+        "properties": {
+            "loc": {"type": "array", "items": {"type": "string"}},
+            "msg": {"type": "string"},
+            "type": {"type": "string"},
+        },
+        "required": ["loc", "msg", "type"],
+    }
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
 
 
 # Pydantic Models cho Request Body

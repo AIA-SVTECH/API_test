@@ -1,7 +1,8 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "FastAPI",
+        "title": "Sample API",
+        "description": "Sample API",
         "version": "0.1.0"
     },
     "paths": {
@@ -227,14 +228,7 @@
                         "title": "Phone Number"
                     },
                     "account_balance": {
-                        "anyOf": [
-                            {
-                                "type": "number"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ],
+                        "type": "integer",
                         "title": "Account Balance",
                         "default": 0
                     }
@@ -279,7 +273,7 @@
                         "title": "Phone Number"
                     },
                     "account_balance": {
-                        "type": "number",
+                        "type": "integer",
                         "title": "Account Balance"
                     }
                 },
@@ -328,38 +322,37 @@
                 "title": "TransactionResponse"
             },
             "ValidationError": {
+                "type": "object",
                 "properties": {
                     "loc": {
-                        "items": {
-                            "anyOf": [
-                                {
-                                    "type": "string"
-                                },
-                                {
-                                    "type": "integer"
-                                }
-                            ]
-                        },
                         "type": "array",
-                        "title": "Location"
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "msg": {
-                        "type": "string",
-                        "title": "Message"
+                        "type": "string"
                     },
                     "type": {
-                        "type": "string",
-                        "title": "Error Type"
+                        "type": "string"
                     }
                 },
-                "type": "object",
                 "required": [
                     "loc",
                     "msg",
                     "type"
-                ],
-                "title": "ValidationError"
+                ]
             }
         }
-    }
+    },
+    "servers": [
+        {
+            "url": "http://140.83.86.79:8000/"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
 }

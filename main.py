@@ -76,7 +76,7 @@ class TransactionResponse(BaseModel):
     transaction_id: int
     payer_id: int
     merchant_id: int
-    transaction_amount: float
+    amount: float
     transaction_date: datetime
 
     class Config:

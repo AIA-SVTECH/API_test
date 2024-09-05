@@ -301,9 +301,9 @@
                         "type": "integer",
                         "title": "Merchant Id"
                     },
-                    "transaction_amount": {
+                    "amount": {
                         "type": "number",
-                        "title": "Transaction Amount"
+                        "title": "Amount"
                     },
                     "transaction_date": {
                         "type": "string",
@@ -316,7 +316,7 @@
                     "transaction_id",
                     "payer_id",
                     "merchant_id",
-                    "transaction_amount",
+                    "amount",
                     "transaction_date"
                 ],
                 "title": "TransactionResponse"

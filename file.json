@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/create_payer/": {
+            "post": {
+                "summary": "Create Account",
+                "operationId": "create_account_create_payer__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PayerCreateRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PayerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/check_balance/": {
+            "post": {
+                "summary": "Check Balance",
+                "operationId": "check_balance_check_balance__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PayerIdRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PayerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/filter_transactions/": {
+            "post": {
+                "summary": "Filter Transactions",
+                "operationId": "filter_transactions_filter_transactions__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DateRangeRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/TransactionResponse"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Filter Transactions Filter Transactions  Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/filter_by_merchant/": {
+            "post": {
+                "summary": "Filter By Merchant",
+                "operationId": "filter_by_merchant_filter_by_merchant__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MerchantNameRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/TransactionResponse"
+                                    },
+                                    "type": "array",
+                                    "title": "Response Filter By Merchant Filter By Merchant  Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DateRangeRequestBody": {
+                "properties": {
+                    "start_date": {
+                        "type": "string",
+                        "title": "Start Date"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "title": "End Date"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "start_date",
+                    "end_date"
+                ],
+                "title": "DateRangeRequestBody"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "MerchantNameRequestBody": {
+                "properties": {
+                    "merchant_name": {
+                        "type": "string",
+                        "title": "Merchant Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "merchant_name"
+                ],
+                "title": "MerchantNameRequestBody"
+            },
+            "PayerCreateRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "title": "Phone Number"
+                    },
+                    "account_balance": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Account Balance",
+                        "default": 0
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "email",
+                    "phone_number"
+                ],
+                "title": "PayerCreateRequest"
+            },
+            "PayerIdRequestBody": {
+                "properties": {
+                    "payer_id": {
+                        "type": "integer",
+                        "title": "Payer Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "payer_id"
+                ],
+                "title": "PayerIdRequestBody"
+            },
+            "PayerResponse": {
+                "properties": {
+                    "payer_id": {
+                        "type": "integer",
+                        "title": "Payer Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "email": {
+                        "type": "string",
+                        "title": "Email"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "title": "Phone Number"
+                    },
+                    "account_balance": {
+                        "type": "number",
+                        "title": "Account Balance"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "payer_id",
+                    "name",
+                    "email",
+                    "phone_number",
+                    "account_balance"
+                ],
+                "title": "PayerResponse"
+            },
+            "TransactionResponse": {
+                "properties": {
+                    "transaction_id": {
+                        "type": "integer",
+                        "title": "Transaction Id"
+                    },
+                    "payer_id": {
+                        "type": "integer",
+                        "title": "Payer Id"
+                    },
+                    "merchant_id": {
+                        "type": "integer",
+                        "title": "Merchant Id"
+                    },
+                    "transaction_amount": {
+                        "type": "number",
+                        "title": "Transaction Amount"
+                    },
+                    "transaction_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Transaction Date"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "transaction_id",
+                    "payer_id",
+                    "merchant_id",
+                    "transaction_amount",
+                    "transaction_date"
+                ],
+                "title": "TransactionResponse"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}
